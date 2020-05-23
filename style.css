@@ -1,0 +1,31 @@
+#screen {
+  background-color: black;
+  cursor: pointer;
+}
+
+#start_btn,
+#reset_btn,
+#rand_btn {
+  text-align: center;
+  margin: 10px;
+}
+
+#form_holder {
+  margin: 8px;
+}
+
+#dev_id {
+  float: right;
+  vertical-align: baseline;
+  margin: 8px;
+  color: black;
+  font-size: large;
+}
+
+label {
+  font-size: small;
+}
+
+label strong {
+  font-size: large;
+}

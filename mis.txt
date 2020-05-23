@@ -1,0 +1,28 @@
+ var Forcex =
+          (G * (body[i].mass * body[j].mass)) /
+          Math.pow(body[j].x - body[i].x, 2);
+        var Forcey =
+          (G * (body[i].mass * body[j].mass)) /
+          Math.pow(body[j].y - body[i].y, 2);
+        force.push(new force_comp(Forcex, Forcey));
+
+        var angle =
+          Math.atan2(body[j].y - body[i].y, body[j].x - body[i].x) *
+          (180 / Math.PI);
+        console.log("Angle = " + angle);
+
+        console.log(":::::::::::: [" + i + " , " + j + "]::::::::::::::::");
+        console.log("Distance: X = " + (body[j].x - body[i].x));
+        console.log(Forcex);
+        console.log("Distance: Y = " + (body[j].y - body[i].y));
+        console.log("R = " + r);
+        console.log(Forcey);
+        res = (G * (body[i].mass * body[j].mass)) / r;
+        console.log("Resultant force = " + res);
+        c.beginPath();
+        c.moveTo(body[i].x, body[i].y);
+        m = (body[j].y - body[i].y) / body[j].x;
+        console.log(m);
+        c.lineTo(body[j].x - 100, m * (body[j].x - 100) + body[i].y);
+        c.strokeStyle = "red";
+        c.stroke();
