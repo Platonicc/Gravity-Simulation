@@ -5,10 +5,20 @@ c = canvas.getContext("2d");
 canvas.height = window.innerHeight - 78;
 canvas.width = window.innerWidth;
 
+totalNoBodies = document.getElementById("total_bodies_text");
+
 startBtn = document.getElementById("start_btn");
-resetBtn = document.getElementById("reset_btn");
-gInput = document.getElementById("g_const_input");
 randomBtn = document.getElementById("rand_btn");
+resetBtn = document.getElementById("reset_btn");
+
+gInput = document.getElementById("g_const_input");
+scaleInput = document.getElementById("scale_input");
+
+minBodyInput = document.getElementById("min_no_input");
+maxBodyInput = document.getElementById("max_no_input");
+
+minMassInput = document.getElementById("min_mass_input");
+maxMassInput = document.getElementById("max_mass_input");
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 // :::::::::::::::::::: HELPER FUNTIONS ::::::::::::::::::::::::
@@ -17,7 +27,15 @@ getRandom = (min, max) => min + Math.random() * (max + 1 - min);
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 var body = [];
-var G = gInput.value;
+
+var G = parseFloat(gInput.value);
+var SCALE = parseFloat(scaleInput.value);
+
+var MIN_NUM = parseFloat(minBodyInput.value);
+var MAX_NUM = parseFloat(maxBodyInput.value);
+
+var MIN_MASS = parseFloat(minMassInput.value);
+var MAX_MASS = parseFloat(maxMassInput.value);
 //::::::::::::::::::::: Init Data Structure of our Object :::::::::::::::::::::::::
 Circle = function (x, y, radius, mass) {
   this.x = x;
@@ -48,7 +66,8 @@ Circle = function (x, y, radius, mass) {
   this.update = function () {
     for (var i = 0; i < body.length; i++) {
       var r2 =
-        Math.pow(body[i].x - this.x, 2) + Math.pow(body[i].y - this.y, 2);
+        Math.pow(body[i].x - this.x, 2) +
+        Math.pow(body[i].y - this.y, 2) * SCALE;
       if (Math.sqrt(r2) > body[i].radius + this.radius) {
         var accn = (G * body[i].mass) / r2;
         var accnX_local = (accn * (body[i].x - this.x)) / Math.sqrt(r2);
@@ -76,23 +95,31 @@ function initSimulation() {
   c.clearRect(0, 0, window.innerWidth, window.innerHeight);
   requestAnimationFrame(initSimulation);
   G = gInput.value;
-  console.log(G);
   for (var k = 0; k < body.length; k++) {
     body[k].update();
   }
 }
 
+function updateRandomControlValues() {
+  MIN_NUM = parseFloat(minBodyInput.value);
+  MAX_NUM = parseFloat(maxBodyInput.value);
+  MIN_MASS = parseFloat(minMassInput.value);
+  MAX_MASS = parseFloat(maxMassInput.value);
+}
+
 function generateRandomBodies() {
-  for (var i = 0; i < Math.round(getRandom(30, 1000)); i++) {
+  updateRandomControlValues();
+  for (var i = 0; i < Math.round(getRandom(MIN_NUM, MAX_NUM)); i++) {
     var obj = new Circle(
       getRandom(0, canvas.width),
       getRandom(0, canvas.height),
       10,
-      getRandom(0.01, 100)
+      MIN_MASS != MAX_MASS ? getRandom(MIN_MASS, MAX_NUM) : MIN_MASS
     );
     body.push(obj);
     obj.draw();
   }
+  totalNoBodies.textContent = body.length;
 }
 
 //:::::::::::::::::::::: Event Listners :::::::::::::::::::::::::::::::::::::::::::
@@ -102,7 +129,7 @@ canvas.addEventListener("click", function (event) {
   var obj = new Circle(event.clientX, event.clientY, 10, massInput);
   body.push(obj);
   obj.draw();
-  console.log(body);
+  totalNoBodies.textContent = body.length;
 });
 
 window.addEventListener("resize", function () {
@@ -114,16 +141,26 @@ startBtn.addEventListener("click", function () {
   initSimulation();
 });
 
+randomBtn.addEventListener("click", function () {
+  generateRandomBodies();
+});
+
 resetBtn.addEventListener("click", function () {
   location.reload();
   gInput.value = 6.674e-11;
+  scaleInput.value = 1;
+  minBodyInput.value = 2;
+  maxBodyInput.value = 1000;
+  minMassInput.value = 0.01;
+  maxMassInput.value = 100;
 });
 
 gInput.addEventListener("change", function () {
   G = parseFloat(gInput.value);
 });
 
-randomBtn.addEventListener("click", function () {
-  generateRandomBodies();
+scaleInput.addEventListener("change", function () {
+  SCALE = parseFloat(scaleInput.value);
 });
+
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
