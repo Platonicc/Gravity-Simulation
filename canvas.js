@@ -27,6 +27,8 @@ getCanvasArcRadian = (degree) => Math.PI * 2 - degree * ((Math.PI * 2) / 360);
 getRandom = (min, max) => min + Math.random() * (max + 1 - min);
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+var IS_RUNNING = false;
+
 var body = [];
 
 var G = parseFloat(gInput.value);
@@ -99,6 +101,7 @@ function initSimulation() {
   for (var k = 0; k < body.length; k++) {
     body[k].update();
   }
+  totalNoBodies.textContent = body.length;
 }
 
 function updateRandomControlValues() {
@@ -139,7 +142,10 @@ window.addEventListener("resize", function () {
 });
 
 startBtn.addEventListener("click", function () {
-  initSimulation();
+  if (!IS_RUNNING) {
+    IS_RUNNING = true;
+    initSimulation();
+  }
 });
 
 randomBtn.addEventListener("click", function () {
@@ -147,17 +153,23 @@ randomBtn.addEventListener("click", function () {
 });
 
 resetScreenBtn.addEventListener("click", function () {
-  location.reload();
+  c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  body = [];
+  //location.reload();
+  totalNoBodies.textContent = body.length;
 });
 
 resetBtn.addEventListener("click", function () {
-  location.reload();
+  c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  body = [];
+  //location.reload();
   gInput.value = 6.674e-11;
   scaleInput.value = 1;
   minBodyInput.value = 2;
   maxBodyInput.value = 1000;
   minMassInput.value = 0.01;
   maxMassInput.value = 100;
+  totalNoBodies.textContent = body.length;
 });
 
 gInput.addEventListener("change", function () {
