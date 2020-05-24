@@ -1,43 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gavity</title>
+    <title>Gravity</title>
   </head>
-  <body>
     <canvas id="screen">Browser not supported!</canvas>
+      <span class="total_bodies">Total number of bodies: <span id="total_bodies_text">0</span></span>
     <div class="alert alert-success" role="alert">
+      <h5>Main Controls</h5>
       <button id="start_btn" class="btn btn-success">
-        Start
+        Start now
       </button>
       <button id="rand_btn" class="btn btn-primary">
         Generate random bodies
       </button>
-      <button type="reset" id="reset_btn" class="btn btn-dark">
-        Reset
+      <button type="reset" id="reset_screen_btn" class="btn btn-dark">
+        Reset Screen
       </button>
+      <button type="reset" id="reset_btn" class="btn btn-danger">
+        Reset All
+      </button>
+      <br><br>
       <label for="g_const_input">Value of <strong>G:</strong> </label>
       <input
         type="number"
         step="any"
         id="g_const_input"
-        min="infinity"
-        max="infinity"
         value="6.674e-11"
       />
-      <a id="dev_id" href="http://www.github.com/amannirala13"
-        >Developer: <strong>Aman Nirala</strong></a
-      >
+      <label for="scale_input">Scale of <strong>1px</strong> in <strong>(m):</strong> </label>
+      <input
+        type="number"
+        step="any"
+        id="scale_input"
+        value="1"
+      />
     </div>
+
+    <div class="alert alert-primary" role="alert">
+      <h5>Random Properties Controls</h5>
+      <div class="alert alert-danger" role="alert">
+        <label for="min_no_input"><strong>Minimum number:</strong> </label>
+        <input
+          type="number"
+          step="any"
+          id="min_no_input"
+          value="1"
+        />
+        <label for="max_no_input"><strong>Maximum number:</strong> </label>
+        <input
+          type="number"
+          step="any"
+          id="max_no_input"
+          value="1000"
+        />
+      </div>
+      <div class="alert alert-danger" role="alert">
+        <label for="min_mass_input"><strong>Minimum mass:</strong></label>
+        <input
+          type="number"
+          step="any"
+          id="min_mass_input"
+          value="1"
+        />
+        <label for="max_mass_input"><strong>Maximum mass:</strong></label>
+        <input
+          type="number"
+          step="any"
+          id="max_mass_input"
+          value="100"
+        />
+      </div>
+    </div>
+
+    <div>
+      <a id="dev_id" href="http://www.github.com/amannirala13"
+      >Developer: <strong>Aman Nirala</strong></a>
+    </div>
+
   </body>
+
+
+  <footer>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="style.css" />
   <script src="canvas.js"></script>
   <script
     src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -54,4 +106,5 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"
   ></script>
+  </footer>
 </html>
