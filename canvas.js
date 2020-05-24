@@ -97,11 +97,14 @@ Circle = function (x, y, radius, mass) {
 function initSimulation() {
   c.clearRect(0, 0, window.innerWidth, window.innerHeight);
   requestAnimationFrame(initSimulation);
-  G = gInput.value;
+  G = parseFloat(gInput.value);
+  SCALE = parseFloat(scaleInput.value);
   for (var k = 0; k < body.length; k++) {
     body[k].update();
   }
   totalNoBodies.textContent = body.length;
+  console.log(G);
+  console.log(SCALE);
 }
 
 function updateRandomControlValues() {
@@ -155,8 +158,8 @@ randomBtn.addEventListener("click", function () {
 resetScreenBtn.addEventListener("click", function () {
   c.clearRect(0, 0, window.innerWidth, window.innerHeight);
   body = [];
-  //location.reload();
   totalNoBodies.textContent = body.length;
+  //location.reload();
 });
 
 resetBtn.addEventListener("click", function () {
@@ -171,13 +174,4 @@ resetBtn.addEventListener("click", function () {
   maxMassInput.value = 100;
   totalNoBodies.textContent = body.length;
 });
-
-gInput.addEventListener("change", function () {
-  G = parseFloat(gInput.value);
-});
-
-scaleInput.addEventListener("change", function () {
-  SCALE = parseFloat(scaleInput.value);
-});
-
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
