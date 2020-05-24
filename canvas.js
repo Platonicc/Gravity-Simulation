@@ -9,6 +9,7 @@ totalNoBodies = document.getElementById("total_bodies_text");
 
 startBtn = document.getElementById("start_btn");
 randomBtn = document.getElementById("rand_btn");
+resetScreenBtn = document.getElementById("reset_screen_btn");
 resetBtn = document.getElementById("reset_btn");
 
 gInput = document.getElementById("g_const_input");
@@ -143,6 +144,10 @@ startBtn.addEventListener("click", function () {
 
 randomBtn.addEventListener("click", function () {
   generateRandomBodies();
+});
+
+resetScreenBtn.addEventListener("click", function () {
+  location.reload();
 });
 
 resetBtn.addEventListener("click", function () {
