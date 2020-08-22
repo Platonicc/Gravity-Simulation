@@ -72,7 +72,8 @@ Circle = function (x, y, radius, mass) {
         Math.pow(body[i].x - this.x, 2) +
         Math.pow(body[i].y - this.y, 2) * SCALE;
       if (Math.sqrt(r2) > body[i].radius + this.radius) {
-        var accn = (G * body[i].mass) / r2;
+        var accn = (G * body[i].mass * this.mass) / r2 / this.mass;
+        accn = isNaN(accn) ? 0 : accn;
         var accnX_local = (accn * (body[i].x - this.x)) / Math.sqrt(r2);
         var accnY_local = (accn * (body[i].y - this.y)) / Math.sqrt(r2);
         // if (Math.abs(body[i].x - this.x) <= 20) {
@@ -103,8 +104,6 @@ function initSimulation() {
     body[k].update();
   }
   totalNoBodies.textContent = body.length;
-  console.log(G);
-  console.log(SCALE);
 }
 
 function updateRandomControlValues() {
